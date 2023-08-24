@@ -11,6 +11,9 @@ class Operation():
     self.operator = match.group()
 
     values = string.split(self.operator)
+    self.__validate_len__(values[0])
+    self.__validate_len__(values[1])
+
     try:
       self.val1 = int(values[0])
       self.val2 = int("{}{}".format(self.operator, values[1].lstrip()))
@@ -18,6 +21,10 @@ class Operation():
       raise Exception("Error: Numbers must only contain digits.")
 
     self.result = self.val1 + self.val2
+
+  def __validate_len__(self, value: str):
+    if len(value.lstrip().rstrip()) > 4:
+      raise Exception("Error: Numbers cannot be more than four digits.")
 
   def __str__(self):
     val1 = str(self.val1).rjust(5, " ")
